@@ -44,11 +44,14 @@ The simulation was implemented using **NoLimits 2 Roller Coaster Simulation** (N
 - The control system communicates with the simulation using NL2's API to manage ride operations, including train dispatching, gate control, and harness states (see Code section below).
 - 17 custom 3D-modeled operators and sensors were created, each fully programmed and animated to represent realistic buttons, switches, indicator lamps, and sensors. SketchUp Pro 2017 was the 3D modeling tool used to create accurate models of operators (Figure 6) and sensors.
 
-![](images/block_state_machine.PNG)
-_Figure 5. Simplified state machine for a single block_
-
-![](images/button_model.png)
-_Figure 6. Wireframe of button 3D model_
+<figure>
+  <img src="images/block_state_machine.PNG" style="width:50%">
+  <figcaption><i>Figure 5. Simplified state machine for a single block</i></figcaption>
+</figure>
+<figure>
+  <img src="images/button_model.PNG" style="width:50%">
+  <figcaption><i>Figure 6. Wireframe of button 3D model</i></figcaption>
+</figure>
 
 #### Physical Control Panel Component:
 
