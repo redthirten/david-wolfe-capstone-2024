@@ -9,8 +9,14 @@ Modern amusement rides are marvels of engineering, blending sophisticated system
 
 The project consists of two key components: a detailed 3D computer simulation and a physical control panel prototype. The simulation utilizes NoLimits 2 Roller Coaster Simulation (NL2) to provide realistic visual feedback and physics, enhanced by custom written software that adds ride control systems, safety mechanisms, and operator interfaces (Figure 1). The physical control panel (Figure 2) further complements this setup by offering a tactile training experience, incorporating industry-standard hardware to replicate real-world control systems.
 
-
-TODO: Figures 1 & 2
+<figure>
+  <img src="images/in_sim_panel.png" style="width:25%">
+  <figcaption><i>Figure 1. Example of a fully simulated panel within NL2</i></figcaption>
+</figure>
+<figure>
+  <img src="images/physical_panel.jpg" style="width:25%">
+  <figcaption><i>Figure 2. Physical control panel prototype</i></figcaption>
+</figure>
 
 By combining a computer-based 3D simulation with a physical control panel, this project provides a functionally accurate and interactive experience. The simulated environment allows trainees to practice standard operating procedures, troubleshoot edge cases, and respond to emergencies without the risks associated with operating actual rides. This dual-component system offers the flexibility to prototype and train on complex control systems, benefiting not only operators but also ride manufacturers exploring safer and more intuitive designs.
 
@@ -30,7 +36,7 @@ As mentioned previously, this project is structured around two core components: 
 
 #### Simulation Component:
 
-The simulation was implemented using NoLimits 2 Roller Coaster Simulation (NL2), which provides a realistic 3D environment and accurate physics for amusement rides. It has been utilized by amusement ride manufacturers to showcase new rides to prospective parks and guests. Such companies include Vekoma, Gerstlauer, Intamin, Zamperla, Mack, and Maurer [2]. Similar to a game engine, this was the only software tool not developed from scratch in the interest of reaching the intended goal of the project in a timely fashion. While NL2 offers ride dynamics and an embedded subset of the Java Virtual Machine (JVM) for custom software integration, it does not include advanced control systems for rides. To address this, I developed a custom control system in Java to run on NL2:
+The simulation was implemented using **NoLimits 2 Roller Coaster Simulation** (NL2), which provides a realistic 3D environment and accurate physics for amusement rides. It has been utilized by amusement ride manufacturers to showcase new rides to prospective parks and guests. Such companies include Vekoma, Gerstlauer, Intamin, Zamperla, Mack, and Maurer [2]. Similar to a game engine, this was the only software tool not developed from scratch in the interest of reaching the intended goal of the project in a timely fashion. While NL2 offers ride dynamics and an embedded subset of the Java Virtual Machine (JVM) for custom software integration, it does not include advanced control systems for rides. To address this, I developed a custom control system in Java to run on NL2:
 
 - A state machine was implemented to manage ride safety and ensure deterministic operation.
   - For example, the system enforces block zone logic [5], ensuring no two trains occupy the same segment of the ride (Figure 5).
@@ -38,7 +44,11 @@ The simulation was implemented using NoLimits 2 Roller Coaster Simulation (NL2),
 - The control system communicates with the simulation using NL2's API to manage ride operations, including train dispatching, gate control, and harness states (see Code section below).
 - 17 custom 3D-modeled operators and sensors were created, each fully programmed and animated to represent realistic buttons, switches, indicator lamps, and sensors. SketchUp Pro 2017 was the 3D modeling tool used to create accurate models of operators (Figure 6) and sensors.
 
-TODO: Figures
+![](images/block_state_machine.PNG)
+_Figure 5. Simplified state machine for a single block_
+
+![](images/button_model.png)
+_Figure 6. Wireframe of button 3D model_
 
 #### Physical Control Panel Component:
 
