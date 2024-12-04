@@ -33,7 +33,21 @@
   }
 </style> -->
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/CSU_Channel_Islands_logo.svg" alt="CSU Channel Islands Logo" style="background: white; padding: 10px; width: 50%; max-width:300px">
+<a href="https://www.csuci.edu/">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/CSU_Channel_Islands_logo.svg" alt="CSU Channel Islands Logo" style="background: white; padding: 10px; width: 50%; max-width:300px">
+</a>
+
+### Index:
+
+- [Introduction](#introduction)
+- [Background & Inspiration](#background--inspiration)
+- [Methodology](#methodology)
+- [Code](#code)
+- [Challenges](#challenges)
+- [Conclusion](#conclusion)
+- [Future Improvements](#future-improvements)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
 
 ## Introduction
 
@@ -119,23 +133,89 @@ The physical control panel is a simplified, real-world mockup designed for tacti
 
 ## Code
 
-### Links:
-
-- [NL2 Control System](https://github.com/redthirten/Reds-Panels-and-Operators/tree/main/scenery/reds_panels_and_operators/scripts)
-- [Arduino Firmware for Panel](https://github.com/redthirten/NL2-Control-Panel-Leonardo)
+<div>
+  <a href="https://github.com/redthirten/Reds-Panels-and-Operators/tree/main/scenery/reds_panels_and_operators/scripts" class="btn">View NL2 Control System</a>
+  <a href="https://github.com/redthirten/NL2-Control-Panel-Leonardo" class="btn">View Arduino Firmware for Panel</a>
+</div>
 
 ### Examples:
 
-#### TODO: Example 1
+#### PushButton.nlvm - Dispatch Function
+
+TODO: Code explanation
 
 ```java
-// Example 1 java code
+private void handleDispatchFunc(bool action){
+  if (action){
+    button.buttonIn();
+    section.doStationManualDispatch();
+    if (block.canSemiManualMoveForward())
+      block.doSemiManualMoveForward();
+    return;
+  }
+  
+  // NL2 Train speed bug workaround
+  if (section.isTrainOnSection() && section.getTrainOnSection().getSpeed() == 0.0){
+    if (frameCounter < 5)
+      frameCounter++;
+  }
+  else
+    frameCounter = 0;
+
+  // Ready
+  if (section.canStationManualDispatch()){
+    enableActionIf(section.isStationManualDispatchMode());
+    button.setLightState(Block.LAMP_FLASHING);
+    button.buttonOut();
+  }
+  // Dispatching & approaching
+  else if (section.isTrainOnSection() && (section.getTrainOnSection().getSpeed() != 0.0 || frameCounter < 5)){
+    disableAction();
+    button.setLightState(Block.LAMP_ON);
+    button.buttonIn();
+  }
+  // Not ready
+  else{
+    disableAction();
+    button.setLightState(Block.LAMP_OFF);
+    button.buttonOut();
+  }
+}
 ```
 
-#### TODO: Example 2
+#### nl2_control_panel_leonardo.ino - Emergency Stop Pressed
+
+TODO: Code explanation
 
 ```c++
-// Example 2 C++ code
+// ==================== RCS Mode: E-Stop ====================
+if (EstopPOS == LOW){ // If E-Stop button is pressed...
+    digitalWrite(ResetLT, LOW); // Turn off Reset light
+    digitalWrite(Dispatch1LT, LOW); // Turn off Dispatch1 light
+    digitalWrite(Dispatch2LT, LOW); // Turn off Dispatch2 light
+    digitalWrite(FloorLT, LOW); // Turn off Floor light
+    RCSEnable = LOW; // Deactivate Remote Control System
+
+    // If pressed for the first time...
+    if (EstopPOS == LOW && EstopHX == HIGH){
+        Keyboard.press(KEY_F8); // Press F8 Key
+        digitalWrite(EstopLT, HIGH); // Turn on E-Stop light
+        EstopHX = EstopPOS; // Update E-Stop History
+        delay(100); // Delay 100ms
+        Keyboard.releaseAll(); // Release F8 Key
+    }
+
+    // Blinking E-Stop Light Function (E-Stop blinks fast when pressed down)
+    if (currentMillis - previousMillis > EstopBLK){
+        previousMillis = currentMillis; // Initializes timer with new value
+        if (EstopON == LOW){ // If E-Stop light is off...
+            EstopON = HIGH; // Turn on...
+        }
+        else // If Estop light is on...
+            EstopON = LOW; // Turn off...
+        digitalWrite(EstopLT, EstopON); // Write to E-Stop light to turn on/off
+    }
+}
 ```
 
 ## Challenges
@@ -172,7 +252,7 @@ Special Thanks:
 ## References
 
 1. ASTM International. _Standard Practice for Design of Amusement Rides and Devices_. F2291-2006, State of Indiana, 685 IAC 1-2-9, ASTM International, 2006. ASTM, doi:10.1520/F2291-17. Accessed at www.astm.org.
-2. Lange, Ole. “_Info - NoLimits 1_.” NoLimits 2 - Roller Coaster Simulation, nolimitscoaster.com/index.php/info.
-3. Locknear, Francis. “_How Much Does It Cost to Build a Roller Coaster? (2023)_.” TheCostGuys, 30 Mar. 2023, thecostguys.com/business/build-roller-coaster.
-4. Mease, Cameron. “_Amusement Ride Safety Is a Partnership_.” BRPH, 20 Jan. 2023, www.brph.com/amusement-ride-safety-is-a-partnership/.
-5. Väisänen, Antti. “_Design of Roller Coasters_.” Aalto University, 24 July 2018, https://web.archive.org/web/20201112015716/https://aaltodoc.aalto.fi/bitstream/handle/123456789/33706 /master_V%C3%A4is%C3%A4nen_Antti_2018.pdf. Accessed 6 Nov. 2024.
+2. Lange, Ole. “_Info - NoLimits 1_.” NoLimits 2 - Roller Coaster Simulation, [nolimitscoaster.com/index.php/info](https://nolimitscoaster.com/index.php/info).
+3. Locknear, Francis. “_How Much Does It Cost to Build a Roller Coaster? (2023)_.” TheCostGuys, 30 Mar. 2023, [thecostguys.com/business/build-roller-coaster](https://thecostguys.com/business/build-roller-coaster).
+4. Mease, Cameron. “_Amusement Ride Safety Is a Partnership_.” BRPH, 20 Jan. 2023, [www.brph.com/amusement-ride-safety-is-a-partnership/](https://www.brph.com/amusement-ride-safety-is-a-partnership/).
+5. Väisänen, Antti. “_Design of Roller Coasters_.” Aalto University, 24 July 2018, [web.archive.org/web/20201112015716/https://aaltodoc.aalto.fi/bitstream/handle/123456789/33706/master_V%C3%A4is%C3%A4nen_Antti_2018.pdf](https://web.archive.org/web/20201112015716/https://aaltodoc.aalto.fi/bitstream/handle/123456789/33706/master_V%C3%A4is%C3%A4nen_Antti_2018.pdf). Accessed 6 Nov. 2024.

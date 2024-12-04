@@ -2,3 +2,5 @@ theme: jekyll-theme-cayman
 title: Simulation of Amusement Ride Control Systems
 description: David Wolfe • Dr. Michael Soltys • COMP 499 Capstone Project
 show_downloads: false
+github:
+  is_project_page: false
