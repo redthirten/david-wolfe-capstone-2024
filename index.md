@@ -133,8 +133,9 @@ The physical control panel is a simplified, real-world mockup designed for tacti
 
 ## Code
 
-<div>
+<div class="page-header" style="padding: 2rem 3rem">
   <a href="https://github.com/redthirten/Reds-Panels-and-Operators/tree/main/scenery/reds_panels_and_operators/scripts" class="btn">View NL2 Control System</a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/redthirten/NL2-Control-Panel-Leonardo" class="btn">View Arduino Firmware for Panel</a>
 </div>
 
