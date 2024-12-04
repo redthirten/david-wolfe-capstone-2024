@@ -3,6 +3,29 @@
 
 @import "{{ site.theme }}";
 
-figure { 
-    display: inline-block;
+.figure-container {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    align-items: flex-end;  /* Aligns figures to the bottom */
+    max-width: 100%;
+    padding: 30px
+}
+
+.figure-container figure {
+    display: flex;
+    flex-direction: column;  /* Stack image and caption vertically */
+    flex: 0 0 auto;          /* Prevent figures from stretching */
+    margin: 10px;
+    padding: 0;
+}
+
+.figure-container img {
+    width: auto;
+    height: 256px;
+}
+
+.figure-container figcaption {
+    text-align: center;  /* Optionally center the caption */
+    margin-top: 5px;     /* Add some space between image and caption */
 }

@@ -1,6 +1,36 @@
+<!-- Only used for development -->
+<!-- <style>
+  .figure-container {
+      display: flex;
+      justify-content: space-between;
+      overflow-x: auto;
+      align-items: flex-end;  /* Aligns figures to the bottom */
+      max-width: 100%;
+      padding: 30px
+  }
+
+  .figure-container figure {
+      display: flex;
+      flex-direction: column;  /* Stack image and caption vertically */
+      flex: 0 0 auto;          /* Prevent figures from stretching */
+      margin: 10px;
+      padding: 0;
+  }
+
+  .figure-container img {
+      width: auto;
+      height: 256px;
+  }
+  
+  .figure-container figcaption {
+      text-align: center;  /* Optionally center the caption */
+      margin-top: 5px;     /* Add some space between image and caption */
+  }
+</style> -->
+
 # Simulation of Amusement Ride Control Systems
 
-California State University • Capstone Project
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/CSU_Channel_Islands_logo.svg" alt="CSU Channel Islands Logo" style="background: white; padding: 10px; width: 50%; max-width:300px">
 
 ## Introduction
 
@@ -9,14 +39,16 @@ Modern amusement rides are marvels of engineering, blending sophisticated system
 
 The project consists of two key components: a detailed 3D computer simulation and a physical control panel prototype. The simulation utilizes NoLimits 2 Roller Coaster Simulation (NL2) to provide realistic visual feedback and physics, enhanced by custom written software that adds ride control systems, safety mechanisms, and operator interfaces (Figure 1). The physical control panel (Figure 2) further complements this setup by offering a tactile training experience, incorporating industry-standard hardware to replicate real-world control systems.
 
-<figure>
-  <img src="images/in_sim_panel.png" style="width:25%">
-  <figcaption><i>Figure 1. Example of a fully simulated panel within NL2</i></figcaption>
-</figure>
-<figure>
-  <img src="images/physical_panel.jpg" style="width:25%">
-  <figcaption><i>Figure 2. Physical control panel prototype</i></figcaption>
-</figure>
+<div class="figure-container">
+  <figure>
+    <img src="images/in_sim_panel.png">
+    <figcaption><i>Figure 1. Example of a fully simulated panel within NL2</i></figcaption>
+  </figure>
+  <figure>
+    <img src="images/physical_panel.jpg">
+    <figcaption><i>Figure 2. Physical control panel prototype</i></figcaption>
+  </figure>
+</div>
 
 By combining a computer-based 3D simulation with a physical control panel, this project provides a functionally accurate and interactive experience. The simulated environment allows trainees to practice standard operating procedures, troubleshoot edge cases, and respond to emergencies without the risks associated with operating actual rides. This dual-component system offers the flexibility to prototype and train on complex control systems, benefiting not only operators but also ride manufacturers exploring safer and more intuitive designs.
 
@@ -45,13 +77,15 @@ The simulation was implemented using **NoLimits 2 Roller Coaster Simulation** (N
 - 17 custom 3D-modeled operators and sensors were created, each fully programmed and animated to represent realistic buttons, switches, indicator lamps, and sensors. SketchUp Pro 2017 was the 3D modeling tool used to create accurate models of operators (Figure 6) and sensors.
 
 <figure>
-  <img src="images/block_state_machine.PNG" style="width:50%">
+  <img src="images/block_state_machine.png">
   <figcaption><i>Figure 5. Simplified state machine for a single block</i></figcaption>
 </figure>
-<figure>
-  <img src="images/button_model.PNG" style="width:50%">
-  <figcaption><i>Figure 6. Wireframe of button 3D model</i></figcaption>
-</figure>
+<div class="figure-container">
+  <figure>
+    <img src="images/button_model.png">
+    <figcaption><i>Figure 6. Wireframe of button 3D model</i></figcaption>
+  </figure>
+</div>
 
 #### Physical Control Panel Component:
 
@@ -63,6 +97,17 @@ The physical control panel is a simplified, real-world mockup designed for tacti
 - Firmware:
   - Custom C++ firmware processes inputs, controls indicator lamp states, and sends commands to the virtual simulation via simulated key presses over USB. See Figure 3 for a flow diagram of this process.
   - Since the Arduino lacks direct feedback from the simulation, it maintains its own simplified state machine to remain synchronized with the virtual system.
+
+<div class="figure-container">
+  <figure>
+    <img src="images/current_flow_diagram.png">
+    <figcaption><i>Figure 3. Basic flow diagram of physical control panel logic</i></figcaption>
+  </figure>
+  <figure>
+    <img src="images/panel_wiring.png">
+    <figcaption><i>Figure 4. Inside view of panel w/ Arduino controller</i></figcaption>
+  </figure>
+</div>
 
 ## Code
 
@@ -100,7 +145,12 @@ I believe this project demonstrates the feasibility of simulation-based training
 
 NL2 offers a more advanced "telemetry server" that could potentially be used to improve this project. When the application is started with its telemetry server, clients can connect to the server to request telemetry data or remotely control the simulation. The server protocol is a binary message based protocol using TCP. Utilizing this server would likely solve the "no feedback" issue the physical panel controller currently has. Instead of using an Arduino microcontroller, a cheap SBC with GPIO pins could be used (like a Raspberry Pi) to run a custom written client, likely written in Python. This client could establish a direct connection to the telemetry server over a local network, enabling it to replicate the Arduino's functionality while also synchronizing the simulation's state (Figure 8). An additional enhancement could involve expanding the control panel to have a larger and more complex design with more operators. Finally, although time constraints prevented its implementation, adding simulated faults or safety scenarios would have provided valuable opportunities for trainee technicians or operators to practice their standard operating procedures.
 
-TODO: Figure 8
+<div class="figure-container">
+  <figure>
+    <img src="images/future_flow_diagram.png">
+    <figcaption><i>Figure 8. Flow diagram for physical control panel with a SBC</i></figcaption>
+  </figure>
+</div>
 
 ## Acknowledgements
 
