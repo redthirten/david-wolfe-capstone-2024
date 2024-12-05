@@ -51,8 +51,7 @@
 
 ## Introduction
 
-Modern amusement rides are marvels of engineering, blending sophisticated systems with stringent safety requirements due to their human-rated nature. The operation of these rides involves complex procedures that must be performed accurately to ensure passenger safety and system reliability. Training ride operators and maintenance personnel is critical but often constrained by the risks [4] and costs [3] associated with using real-world equipment. This project addresses these challenges by developing a simulation-based training system designed to replicate the control and operation of amusement rides in a realistic, hands-on environment.
-
+Modern amusement rides are marvels of engineering, blending sophisticated systems with stringent safety requirements due to their human-rated nature. The operation of these rides involves complex procedures that must be performed accurately to ensure passenger safety and system reliability. Training ride operators and maintenance personnel is critical but often constrained by the risks \[[4](#references)\] and costs \[[3](#references)\] associated with using real-world equipment. This project addresses these challenges by developing a simulation-based training system designed to replicate the control and operation of amusement rides in a realistic, hands-on environment.
 
 The project consists of two key components: a detailed 3D computer simulation and a physical control panel prototype. The simulation utilizes NoLimits 2 Roller Coaster Simulation (NL2) to provide realistic visual feedback and physics, enhanced by custom written software that adds ride control systems, safety mechanisms, and operator interfaces (Figure 1). The physical control panel (Figure 2) further complements this setup by offering a tactile training experience, incorporating industry-standard hardware to replicate real-world control systems.
 
@@ -71,11 +70,11 @@ By combining a computer-based 3D simulation with a physical control panel, this 
 
 ## Background & Inspiration
 
-I have long been passionate about amusement parks and attractions; a unique field that combines entertainment, cutting-edge technology, and rigorous safety standards [1] to create experiences that bring joy to millions. My interest extends beyond being a casual enthusiast; I am an active member of the American Coaster Enthusiasts (ACE) non-profit organization. This involvement has allowed me to interact with industry leaders, including Neal Thurman, Park President of Six Flags Magic Mountain, as well as other operations and maintenance professionals. These conversations inspired my project and helped affirm its potential value to the industry.
+I have long been passionate about amusement parks and attractions; a unique field that combines entertainment, cutting-edge technology, and rigorous safety standards \[[1](#references)\] to create experiences that bring joy to millions. My interest extends beyond being a casual enthusiast; I am an active member of the American Coaster Enthusiasts (ACE) non-profit organization. This involvement has allowed me to interact with industry leaders, including Neal Thurman, Park President of Six Flags Magic Mountain, as well as other operations and maintenance professionals. These conversations inspired my project and helped affirm its potential value to the industry.
 
 The amusement industry heavily relies on mechanical and electrical engineering, but I am intrigued by how computer science can also play a role. Innovations in programmatic show control, state machines for deterministic ride operation, and simulation-based training all present opportunities for contributions from the field of computer science. Among these, I chose to focus on simulation for this project, aiming to enhance ride operator training while minimizing real-world risks.
 
-Ride operation involves complex systems that must ensure safety, consistency, and efficiency [5]. Current training often depends on real-world equipment, which carries inherent risks and significant costs. My project addresses these challenges by creating a simulation system that provides a safe, detailed, and realistic environment for operator training. By allowing trainees to practice procedures, handle fringe cases, and respond to emergencies in a controlled setting, this solution has the potential to reduce accidents and improve safety.
+Ride operation involves complex systems that must ensure safety, consistency, and efficiency \[[5](#references)\]. Current training often depends on real-world equipment, which carries inherent risks and significant costs. My project addresses these challenges by creating a simulation system that provides a safe, detailed, and realistic environment for operator training. By allowing trainees to practice procedures, handle fringe cases, and respond to emergencies in a controlled setting, this solution has the potential to reduce accidents and improve safety.
 
 Feedback from the aforementioned industry professionals supports the value of this concept, highlighting its potential to streamline training and reduce human error. This encouragement has fueled my work to develop a functional and accurate simulation that could benefit both amusement parks and ride manufacturers.
 
@@ -85,10 +84,10 @@ As mentioned previously, this project is structured around two core components: 
 
 #### Simulation Component:
 
-The simulation was implemented using **NoLimits 2 Roller Coaster Simulation** (NL2), which provides a realistic 3D environment and accurate physics for amusement rides. It has been utilized by amusement ride manufacturers to showcase new rides to prospective parks and guests. Such companies include Vekoma, Gerstlauer, Intamin, Zamperla, Mack, and Maurer [2]. Similar to a game engine, this was the only software tool not developed from scratch in the interest of reaching the intended goal of the project in a timely fashion. While NL2 offers ride dynamics and an embedded subset of the Java Virtual Machine (JVM) for custom software integration, it does not include advanced control systems for rides. To address this, I developed a custom control system in Java to run on NL2:
+The simulation was implemented using **NoLimits 2 Roller Coaster Simulation** (NL2), which provides a realistic 3D environment and accurate physics for amusement rides. It has been utilized by amusement ride manufacturers to showcase new rides to prospective parks and guests. Such companies include Vekoma, Gerstlauer, Intamin, Zamperla, Mack, and Maurer \[[2](#references)\]. Similar to a game engine, this was the only software tool not developed from scratch in the interest of reaching the intended goal of the project in a timely fashion. While NL2 offers ride dynamics and an embedded subset of the Java Virtual Machine (JVM) for custom software integration, it does not include advanced control systems for rides. To address this, I developed a custom control system in Java to run on NL2:
 
 - A state machine was implemented to manage ride safety and ensure deterministic operation.
-  - For example, the system enforces block zone logic [5], ensuring no two trains occupy the same segment of the ride (Figure 5).
+  - For example, the system enforces block zone logic \[[5](#references)\], ensuring no two trains occupy the same segment of the ride (Figure 5).
 - Sensors and operators, such as Hall-effect sensors and dispatch buttons, were modeled in 3D and programmed to respond dynamically to train and user interaction, respectively.
 - The control system communicates with the simulation using NL2's API to manage ride operations, including train dispatching, gate control, and harness states (see Code section below).
 - 17 custom 3D-modeled operators and sensors were created, each fully programmed and animated to represent realistic buttons, switches, indicator lamps, and sensors. SketchUp Pro 2017 was the 3D modeling tool used to create accurate models of operators (Figure 6) and sensors.
@@ -143,7 +142,7 @@ The physical control panel is a simplified, real-world mockup designed for tacti
 
 #### PushButton.nlvm - Dispatch Function
 
-TODO: Code explanation
+This `handleDispatchFunc` method, part of the `PushButton` class, defines the behavior of a panel-mounted button configured for the Dispatch function. Called every rendered frame of the simulation, it handles button actions when pressed (`action = true`) to trigger a station dispatch and semi-manual block movements if conditions allow. It also manages button animations and light states, reflecting whether the system is ready for dispatch, actively dispatching, or not ready. The method includes many calls to external methods that ensure safe and accurate handling of the coaster's block control system.
 
 ```java
 private void handleDispatchFunc(bool action){
@@ -186,7 +185,7 @@ private void handleDispatchFunc(bool action){
 
 #### nl2_control_panel_leonardo.ino - Emergency Stop Pressed
 
-TODO: Code explanation
+This Arduino code snippet, executed within it's main loop, defines the behavior when the physical Emergency Stop (E-Stop) button on the control panel is pressed. It immediately turns off all active indicator lights (Reset, Dispatch, and Floor), deactivates the Remote Control System (`RCSEnable`), and engages the E-Stop light. If the E-Stop is pressed for the first time, it simulates pressing the `F8` key via keyboard emulation and updates the E-Stop state history. Additionally, the E-Stop light blinks rapidly using a timer-based function to provide visual feedback, ensuring that operators are aware of the E-Stop state during simulated emergencies.
 
 ```c++
 // ==================== RCS Mode: E-Stop ====================
